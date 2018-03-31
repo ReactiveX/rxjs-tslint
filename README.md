@@ -38,7 +38,7 @@ npm run build
 3.  Run tslint:
 
 ```bash
-./node_modules/.bin/tslint -c migrate-rxjs.tslint.json --project src/tsconfig.app.json
+./node_modules/.bin/tslint -c migrate-rxjs.tslint.json --project src/tsconfig.app.json --fix
 ```
 
 4.  Enjoy! 😎
