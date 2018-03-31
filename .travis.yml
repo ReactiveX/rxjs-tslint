@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - stable
+os:
+  - linux
+
+branches:
+  only: master
+
+script: npm run tscv && npm run lint && npm t
+

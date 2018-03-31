@@ -1,0 +1,8 @@
+{
+  "rulesDirectory": ["dist/src"],
+  "rules": {
+    "update-rxjs-imports": true,
+    "migrate-to-pipeable-operators": true,
+    "collapse-rxjs-imports": true
+  }
+}
