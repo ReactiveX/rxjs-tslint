@@ -1,83 +1,6 @@
 import * as Lint from 'tslint';
 import * as ts from 'typescript';
 
-const ImportMap = new Map([
-  ['rxjs/util/', 'rxjs/internal/util/'],
-  ['rxjs/testing/', 'rxjs/internal/testing/'],
-  ['rxjs/scheduler/', 'rxjs/internal/scheduler/'],
-  ['rxjs/interfaces', 'rxjs'],
-  ['rxjs/AsyncSubject', 'rxjs'],
-  ['rxjs/BehaviorSubject', 'rxjs'],
-  ['rxjs/Notification', 'rxjs'],
-  ['rxjs/Observable', 'rxjs'],
-  ['rxjs/Observer', 'rxjs'],
-  ['rxjs/Operator', 'rxjs'],
-  ['rxjs/ReplaySubject', 'rxjs'],
-  ['rxjs/Subject', 'rxjs'],
-  ['rxjs/Subscriber', 'rxjs'],
-  ['rxjs/Scheduler', 'rxjs'],
-  ['rxjs/Subscription', 'rxjs'],
-  ['rxjs/observable/bindCallback', 'rxjs'],
-  ['rxjs/observable/combineLatest', 'rxjs'],
-  ['rxjs/observable/concat', 'rxjs'],
-  ['rxjs/observable/ConnectableObservable', 'rxjs'],
-  ['rxjs/observable/defer', 'rxjs'],
-  ['rxjs/observable/forkJoin', 'rxjs'],
-  ['rxjs/observable/from', 'rxjs'],
-  ['rxjs/observable/fromEvent', 'rxjs'],
-  ['rxjs/observable/fromEventPattern', 'rxjs'],
-  ['rxjs/observable/interval', 'rxjs'],
-  ['rxjs/observable/merge', 'rxjs'],
-  ['rxjs/observable/of', 'rxjs'],
-  ['rxjs/observable/race', 'rxjs'],
-  ['rxjs/observable/range', 'rxjs'],
-  ['rxjs/observable/timer', 'rxjs'],
-  ['rxjs/observable/zip', 'rxjs'],
-  ['rxjs/observable/fromPromise', 'rxjs'],
-  ['rxjs/observable/if', 'rxjs'],
-  ['rxjs/observable/throw', 'rxjs'],
-  ['rxjs/observable/never', 'rxjs'],
-  ['rxjs/observable/empty', 'rxjs'],
-  ['rxjs/observable/FromEventObservable', 'rxjs/internal/observable/fromEvent']
-]);
-
-const OperatorsPathRe = /^rxjs\/operators\/.*$/;
-const NewOperatorsPath = 'rxjs/operators';
-
-interface ImportReplacement {
-  path: string;
-  symbol: string;
-  newPath: string;
-  newSymbol: string;
-}
-
-const ImportReplacements = [
-  {
-    path: 'rxjs/observable/empty',
-    symbol: 'empty',
-    newPath: 'rxjs',
-    newSymbol: 'EMPTY'
-  },
-  {
-    path: 'rxjs/observable/never',
-    symbol: 'never',
-    newPath: 'rxjs',
-    newSymbol: 'NEVER'
-  },
-  {
-    path: 'rxjs/Subscription',
-    symbol: 'AnonymousSubscription',
-    newPath: 'rxjs',
-    newSymbol: 'Unsubscribable'
-  },
-  {
-    path: 'rxjs/Subscription',
-    symbol: 'ISubscription',
-    newPath: 'rxjs',
-    newSymbol: 'SubscriptionLike'
-  }
-];
-
 export class Rule extends Lint.Rules.AbstractRule {
   public static metadata: Lint.IRuleMetadata = {
     ruleName: 'update-rxjs-imports',
@@ -168,3 +91,80 @@ class UpdateOutdatedImportsWalker extends Lint.RuleWalker {
     });
   }
 }
+
+const ImportMap = new Map([
+  ['rxjs/util/', 'rxjs/internal/util/'],
+  ['rxjs/testing/', 'rxjs/internal/testing/'],
+  ['rxjs/scheduler/', 'rxjs/internal/scheduler/'],
+  ['rxjs/interfaces', 'rxjs'],
+  ['rxjs/AsyncSubject', 'rxjs'],
+  ['rxjs/BehaviorSubject', 'rxjs'],
+  ['rxjs/Notification', 'rxjs'],
+  ['rxjs/Observable', 'rxjs'],
+  ['rxjs/Observer', 'rxjs'],
+  ['rxjs/Operator', 'rxjs'],
+  ['rxjs/ReplaySubject', 'rxjs'],
+  ['rxjs/Subject', 'rxjs'],
+  ['rxjs/Subscriber', 'rxjs'],
+  ['rxjs/Scheduler', 'rxjs'],
+  ['rxjs/Subscription', 'rxjs'],
+  ['rxjs/observable/bindCallback', 'rxjs'],
+  ['rxjs/observable/combineLatest', 'rxjs'],
+  ['rxjs/observable/concat', 'rxjs'],
+  ['rxjs/observable/ConnectableObservable', 'rxjs'],
+  ['rxjs/observable/defer', 'rxjs'],
+  ['rxjs/observable/forkJoin', 'rxjs'],
+  ['rxjs/observable/from', 'rxjs'],
+  ['rxjs/observable/fromEvent', 'rxjs'],
+  ['rxjs/observable/fromEventPattern', 'rxjs'],
+  ['rxjs/observable/interval', 'rxjs'],
+  ['rxjs/observable/merge', 'rxjs'],
+  ['rxjs/observable/of', 'rxjs'],
+  ['rxjs/observable/race', 'rxjs'],
+  ['rxjs/observable/range', 'rxjs'],
+  ['rxjs/observable/timer', 'rxjs'],
+  ['rxjs/observable/zip', 'rxjs'],
+  ['rxjs/observable/fromPromise', 'rxjs'],
+  ['rxjs/observable/if', 'rxjs'],
+  ['rxjs/observable/throw', 'rxjs'],
+  ['rxjs/observable/never', 'rxjs'],
+  ['rxjs/observable/empty', 'rxjs'],
+  ['rxjs/observable/FromEventObservable', 'rxjs/internal/observable/fromEvent']
+]);
+
+const OperatorsPathRe = /^rxjs\/operators\/.*$/;
+const NewOperatorsPath = 'rxjs/operators';
+
+interface ImportReplacement {
+  path: string;
+  symbol: string;
+  newPath: string;
+  newSymbol: string;
+}
+
+const ImportReplacements = [
+  {
+    path: 'rxjs/observable/empty',
+    symbol: 'empty',
+    newPath: 'rxjs',
+    newSymbol: 'EMPTY'
+  },
+  {
+    path: 'rxjs/observable/never',
+    symbol: 'never',
+    newPath: 'rxjs',
+    newSymbol: 'NEVER'
+  },
+  {
+    path: 'rxjs/Subscription',
+    symbol: 'AnonymousSubscription',
+    newPath: 'rxjs',
+    newSymbol: 'Unsubscribable'
+  },
+  {
+    path: 'rxjs/Subscription',
+    symbol: 'ISubscription',
+    newPath: 'rxjs',
+    newSymbol: 'SubscriptionLike'
+  }
+];

@@ -14,13 +14,12 @@ export class Rule extends Lint.Rules.TypedRule {
     description: `Pipeable operators offer a new way of composing observable chains and
         they have advantages for both application developers and library
         authors.`,
-    rationale: 'go/pipeable-operators',
     optionsDescription: '',
     options: null,
     typescriptOnly: true,
     type: 'functionality'
   };
-  static FAILURE_STRING = 'Prefer pipeable operators. See go/pipeable-operators';
+  static FAILURE_STRING = 'prefer pipeable operators.';
   applyWithProgram(sourceFile: ts.SourceFile, program: ts.Program): Lint.RuleFailure[] {
     return this.applyWithFunction(sourceFile, ctx => this.walk(ctx, program));
   }
