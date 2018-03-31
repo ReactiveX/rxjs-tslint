@@ -19,14 +19,14 @@ This repository provides the following rules:
 ```bash
 git clone https://github.com/mgechev/rxjs-migrate
 cd rxjs-migrate && npm i
-npm run build
+npm run build && cp dist/src path/to/project/node_modules/rxjs-migrate
 ```
 
 2.  In your project's directory, create a file called `migrate-rxjs.tslint.json` with the following content:
 
 ```json
 {
-  "rulesDirectory": ["path/to/the/compiled/rules"],
+  "rulesDirectory": ["node_modules/rxjs-migrate"],
   "rules": {
     "update-rxjs-imports": true,
     "migrate-to-pipeable-operators": true,
