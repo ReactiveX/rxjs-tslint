@@ -26,6 +26,7 @@
     "url": "git+https://github.com/mgechev/tslint-rules.git"
   },
   "keywords": [
+    "rxjs",
     "lint",
     "tslint"
   ],
