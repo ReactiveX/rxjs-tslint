@@ -1,6 +1,6 @@
-# RxJS Migrations
+# RxJS TSLint
 
-TSLint rules for migration to the latest version of RxJS.
+TSLint rules for rxjs.
 
 ## Rules
 
@@ -12,21 +12,23 @@ This repository provides the following rules:
 | `migrate-to-pipeable-operators` |     none      |      Migrates side-effect operators to pipeables.       |
 |      `update-rxjs-imports`      |     none      |         Updates RxJS 5.x.x imports to RxJS 6.0          |
 
-## Usage with Angular CLI
+## Migration to RxJS 6
 
-1.  Build the project:
+### Usage with Angular CLI
+
+Using the current set of rules allows you to automatically migrate your project which uses RxJS 5 to RxJS 6. Here's how you can perform the automatic migration:
+
+1.  Install `rxjs-tslint`:
 
 ```bash
-git clone https://github.com/mgechev/rxjs-migrate
-cd rxjs-migrate && npm i
-npm run build && cp dist/src path/to/project/node_modules/rxjs-migrate
+npm i rxjs-tslint
 ```
 
 2.  In your project's directory, create a file called `migrate-rxjs.tslint.json` with the following content:
 
 ```json
 {
-  "rulesDirectory": ["node_modules/rxjs-migrate"],
+  "rulesDirectory": ["node_modules/rxjs-tslint"],
   "rules": {
     "update-rxjs-imports": true,
     "migrate-to-pipeable-operators": true,
@@ -43,7 +45,7 @@ npm run build && cp dist/src path/to/project/node_modules/rxjs-migrate
 
 4.  Enjoy! 😎
 
-### Notes
+#### Notes
 
 * Once you run all the migrations check the diff and make sure that everything looks as expected. If you see any issues, open an issue at https://github.com/angular/angular-cli.
 * Although the migration will format your source code, it's likely that that the style is not consistent with the rest of your project. To make sure that everything is properly following your project's style guide, use a formatter such as prettier or clang-format.
@@ -51,3 +53,4 @@ npm run build && cp dist/src path/to/project/node_modules/rxjs-migrate
 ## License
 
 MIT
+
