@@ -1,7 +1,7 @@
 {
-  "name": "rxjs-migrate",
-  "version": "0.0.7",
-  "description": "Migrations for RxJS",
+  "name": "rxjs-tslint",
+  "version": "0.0.0",
+  "description": "TSLint rule for RxJS",
   "main": "index.js",
   "scripts": {
     "docs": "ts-node build/buildDocs.ts",
