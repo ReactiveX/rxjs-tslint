@@ -14,8 +14,6 @@ This repository provides the following rules:
 
 ## Migration to RxJS 6
 
-### Usage with Angular CLI
-
 Using the current set of rules allows you to automatically migrate your project which uses RxJS 5 to RxJS 6. Here's how you can perform the automatic migration:
 
 1.  Install `rxjs-tslint`:
@@ -37,7 +35,7 @@ npm i rxjs-tslint
 }
 ```
 
-3.  Run tslint:
+3.  Run tslint, pointing to the `tsconfig.json` file that you use for TypeScript compilation (this is used so the checks can use type information). For example if your `tsconfig` is in `src/tsconfig.app.json` (the default from Angular CLI), the command would be:
 
 ```bash
 ./node_modules/.bin/tslint -c migrate-rxjs.tslint.json --project src/tsconfig.app.json --fix
@@ -47,8 +45,8 @@ npm i rxjs-tslint
 
 #### Notes
 
-* Once you run all the migrations check the diff and make sure that everything looks as expected. If you see any issues, open an issue at https://github.com/angular/angular-cli.
-* Although the migration will format your source code, it's likely that that the style is not consistent with the rest of your project. To make sure that everything is properly following your project's style guide, use a formatter such as prettier or clang-format.
+* Once you run all the migrations check the diff and make sure that everything looks as expected. These fixers cover almost all cases we know of, but it's possible that some manual fixes can be required.
+* Although the migration will format your source code, it's likely that that the style is not consistent with the rest of your project. To make sure that everything is properly following your project's style guide, we recommend you apply a formatter such as prettier or clang-format after the edits are made.
 
 ## License
 
