@@ -94,6 +94,9 @@ class UpdateOutdatedImportsWalker extends Lint.RuleWalker {
 
 const ImportMap = new Map([
   ['rxjs/util/', 'rxjs/internal/util/'],
+  ['rxjs/util/pipe', 'rxjs'],
+  ['rxjs/util/noop', 'rxjs'],
+  ['rxjs/util/identity', 'rxjs'],
   ['rxjs/testing/', 'rxjs/internal/testing/'],
   ['rxjs/scheduler/', 'rxjs/internal/scheduler/'],
   ['rxjs/interfaces', 'rxjs'],
