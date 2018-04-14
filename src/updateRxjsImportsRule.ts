@@ -156,6 +156,18 @@ const ImportReplacements = [
     newSymbol: 'NEVER'
   },
   {
+    path: 'rxjs/observable/fromPromise',
+    symbol: 'fromPromise',
+    newPath: 'rxjs',
+    newSymbol: 'from'
+  },
+  {
+    path: 'rxjs/observable/throw',
+    symbol: '_throw',
+    newPath: 'rxjs',
+    newSymbol: 'throwError'
+  },
+  {
     path: 'rxjs/Subscription',
     symbol: 'AnonymousSubscription',
     newPath: 'rxjs',
