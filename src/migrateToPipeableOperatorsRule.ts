@@ -164,7 +164,8 @@ function returnsObservable(node: ts.CallLikeExpression, tc: ts.TypeChecker) {
  * operator like map, switchMap etc.
  */
 function isRxjsInstanceOperator(node: ts.PropertyAccessExpression) {
-  return 'Observable' !== node.expression.getText() && RXJS_OPERATORS.has(node.name.getText());
+  const name = node.name.getText();
+  return 'Observable' !== node.expression.getText() && (RXJS_OPERATORS.has(name) || name === 'let');
 }
 /**
  * Returns true if {@link node} is a call expression containing an RxJs instance
@@ -323,8 +324,11 @@ function replaceWithPipeableOperators(
   const immediateParentText = immediateParent.getText();
   const identifierStart = immediateParentText.lastIndexOf('.');
   const identifierText = immediateParentText.slice(identifierStart + 1);
-  const pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText] || identifierText;
-  operatorsToImport.add(pipeableOperator);
+  let pipeableOperator = '';
+  if (identifierText !== 'let') {
+    pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText] || identifierText;
+    operatorsToImport.add(pipeableOperator);
+  }
   // Generates a replacement that would replace .map with map using absolute
   // position of the text to be replaced.
   const operatorReplacement = Lint.Replacement.replaceFromTo(
