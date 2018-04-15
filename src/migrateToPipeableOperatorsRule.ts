@@ -164,8 +164,7 @@ function returnsObservable(node: ts.CallLikeExpression, tc: ts.TypeChecker) {
  * operator like map, switchMap etc.
  */
 function isRxjsInstanceOperator(node: ts.PropertyAccessExpression) {
-  const name = node.name.getText();
-  return 'Observable' !== node.expression.getText() && (RXJS_OPERATORS.has(name) || name === 'let');
+  return 'Observable' !== node.expression.getText() && RXJS_OPERATORS.has(node.name.getText());
 }
 /**
  * Returns true if {@link node} is a call expression containing an RxJs instance
@@ -324,9 +323,11 @@ function replaceWithPipeableOperators(
   const immediateParentText = immediateParent.getText();
   const identifierStart = immediateParentText.lastIndexOf('.');
   const identifierText = immediateParentText.slice(identifierStart + 1);
-  let pipeableOperator = '';
+  let pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText];
+  if (pipeableOperator === undefined) {
+    pipeableOperator = identifierText;
+  }
   if (identifierText !== 'let') {
-    pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText] || identifierText;
     operatorsToImport.add(pipeableOperator);
   }
   // Generates a replacement that would replace .map with map using absolute
@@ -458,13 +459,15 @@ const RXJS_OPERATORS = new Set([
   'flatMap',
   'flatMapTo',
   'finally',
-  'switch'
+  'switch',
+  'let'
 ]);
 /**
  * Represents the mapping for pipeable version of some operators whose name has
  * changed due to conflict with JavaScript keyword restrictions.
  */
 const PIPEABLE_OPERATOR_MAPPING: { [key: string]: string } = {
+  let: '',
   do: 'tap',
   catch: 'catchError',
   flatMap: 'mergeMap',
