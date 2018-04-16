@@ -4,6 +4,7 @@
 import * as Lint from 'tslint';
 import * as tsutils from 'tsutils';
 import * as ts from 'typescript';
+import { subtractSets, concatSets, isObservable, returnsObservable, computeInsertionIndexForImports } from './utils';
 /**
  * A typed TSLint rule that inspects observable chains using patched RxJs
  * operators and turns them into a pipeable operator chain.
@@ -131,34 +132,7 @@ export class Rule extends Lint.Rules.TypedRule {
     }
   }
 }
-/**
- * Returns true if the {@link type} is an Observable or one of its sub-classes.
- */
-function isObservable(type: ts.Type, tc: ts.TypeChecker): boolean {
-  if (tsutils.isTypeReference(type)) {
-    type = type.target;
-  }
-  if (type.symbol !== undefined && type.symbol.name === 'Observable') {
-    return true;
-  }
-  if (tsutils.isUnionOrIntersectionType(type)) {
-    return type.types.some(t => isObservable(t, tc));
-  }
-  const bases = type.getBaseTypes();
-  return bases !== undefined && bases.some(t => isObservable(t, tc));
-}
-/**
- * Returns true if the return type of the expression represented by the {@link
- * node} is an Observable or one of its subclasses.
- */
-function returnsObservable(node: ts.CallLikeExpression, tc: ts.TypeChecker) {
-  const signature = tc.getResolvedSignature(node);
-  if (signature === undefined) {
-    return false;
-  }
-  const returnType = tc.getReturnTypeOfSignature(signature);
-  return isObservable(returnType, tc);
-}
+
 /**
  * Returns true if the identifier of the current expression is an RxJS instance
  * operator like map, switchMap etc.
@@ -222,20 +196,7 @@ function findImportedRxjsOperators(sourceFile: ts.SourceFile): Set<string> {
     }, [])
   );
 }
-/**
- * Returns the index to be used for inserting import statements potentially
- * after a leading file overview comment (separated from the file with \n\n).
- */
-function computeInsertionIndexForImports(sourceFile: ts.SourceFile): number {
-  const comments = ts.getLeadingCommentRanges(sourceFile.getFullText(), 0) || [];
-  if (comments.length > 0) {
-    const commentEnd = comments[0].end;
-    if (sourceFile.text.substring(commentEnd, commentEnd + 2) === '\n\n') {
-      return commentEnd + 2;
-    }
-  }
-  return sourceFile.getFullStart();
-}
+
 /**
  * Generates an array of {@link Lint.Replacement} representing import statements
  * for the {@link operatorsToAdd}.
@@ -248,19 +209,7 @@ function createImportReplacements(operatorsToAdd: Set<string>, startIndex: numbe
     Lint.Replacement.appendText(startIndex, `\nimport {${operator}} from 'rxjs/operators/${operator}';\n`)
   );
 }
-/**
- * Returns a new Set that contains elements present in the {@link source} but
- * not present in {@link target}
- */
-function subtractSets<T>(source: Set<T>, target: Set<T>): Set<T> {
-  return new Set([...Array.from(source.values())].filter(x => !target.has(x)));
-}
-/**
- * Returns a new Set that contains union of the two input sets.
- */
-function concatSets<T>(set1: Set<T>, set2: Set<T>): Set<T> {
-  return new Set([...Array.from(set1.values()), ...Array.from(set2.values())]);
-}
+
 /**
  * Returns the last chained RxJS call expression by walking up the AST.
  *

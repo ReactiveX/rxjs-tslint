@@ -6,11 +6,12 @@ TSLint rules for rxjs.
 
 This repository provides the following rules:
 
-|            Rule Name            | Configuration |                       Description                       |
-| :-----------------------------: | :-----------: | :-----------------------------------------------------: |
-|     `collapse-rxjs-imports`     |     none      | Collapses multiple imports from `rxjs` to a single one. |
-| `migrate-to-pipeable-operators` |     none      |      Migrates side-effect operators to pipeables.       |
-|      `update-rxjs-imports`      |     none      |         Updates RxJS 5.x.x imports to RxJS 6.0          |
+|              Rule Name              | Configuration |                       Description                       |
+| :---------------------------------: | :-----------: | :-----------------------------------------------------: |
+|       `collapse-rxjs-imports`       |     none      | Collapses multiple imports from `rxjs` to a single one. |
+|   `migrate-to-pipeable-operators`   |     none      |      Migrates side-effect operators to pipeables.       |
+| `migrate-static-observable-methods` |     none      |        Migrates static `Observable` method calls        |
+|        `update-rxjs-imports`        |     none      |         Updates RxJS 5.x.x imports to RxJS 6.0          |
 
 ## Migration to RxJS 6
 
@@ -30,6 +31,7 @@ npm i rxjs-tslint
   "rules": {
     "update-rxjs-imports": true,
     "migrate-to-pipeable-operators": true,
+    "migrate-static-observable-methods": true,
     "collapse-rxjs-imports": true
   }
 }
@@ -51,4 +53,3 @@ npm i rxjs-tslint
 ## License
 
 MIT
-
