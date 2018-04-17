@@ -174,7 +174,7 @@ const RXJS_OPERATORS = new Set([
   'zip'
 ]);
 
-// Not handling NEVER
+// Not handling NEVER and EMPTY
 const OPERATOR_RENAMES: { [key: string]: string } = {
   throw: 'throwError',
   if: 'iif',
