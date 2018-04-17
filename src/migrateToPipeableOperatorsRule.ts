@@ -1,4 +1,4 @@
-// Original author Bowen Ni
+// Original author Bowen Ni, Shino Kurian, Michael Lorton.
 // Modifications mgechev.
 
 import * as Lint from 'tslint';
