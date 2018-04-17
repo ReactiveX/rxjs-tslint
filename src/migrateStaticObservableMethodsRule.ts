@@ -1,13 +1,11 @@
-// Original author Bowen Ni
-// Modifications mgechev.
-
 import * as Lint from 'tslint';
 import * as tsutils from 'tsutils';
 import * as ts from 'typescript';
 import { subtractSets, concatSets, isObservable, returnsObservable, computeInsertionIndexForImports } from './utils';
+
 /**
- * A typed TSLint rule that inspects observable chains using patched RxJs
- * operators and turns them into a pipeable operator chain.
+ * A typed TSLint rule that inspects observable
+ * static methods and turns them into function calls.
  */
 export class Rule extends Lint.Rules.TypedRule {
   static metadata: Lint.IRuleMetadata = {
@@ -30,7 +28,9 @@ export class Rule extends Lint.Rules.TypedRule {
     const sourceFile = ctx.sourceFile;
     const typeChecker = program.getTypeChecker();
     const insertionStart = computeInsertionIndexForImports(sourceFile);
-    let rxjsOperatorImports = findImportedRxjsOperators(sourceFile);
+    let rxjsOperatorImports = new Set<OperatorWithAlias>(
+      Array.from(findImportedRxjsOperators(sourceFile)).map(o => OPERATOR_WITH_ALIAS_MAP[o])
+    );
 
     function checkPatchableOperatorUsage(node: ts.Node) {
       if (!isRxjsStaticOperatorCallExpression(node, typeChecker)) {
@@ -47,7 +47,7 @@ export class Rule extends Lint.Rules.TypedRule {
       const operatorName = OPERATOR_RENAMES[name] || name;
       const start = propAccess.getStart(sourceFile);
       const end = propAccess.getEnd();
-      const operatorsToImport = new Set<string>([operatorName]);
+      const operatorsToImport = new Set<OperatorWithAlias>([OPERATOR_WITH_ALIAS_MAP[operatorName]]);
       const operatorsToAdd = subtractSets(operatorsToImport, rxjsOperatorImports);
       const imports = createImportReplacements(operatorsToAdd, insertionStart);
       rxjsOperatorImports = concatSets(rxjsOperatorImports, operatorsToAdd);
@@ -137,9 +137,9 @@ function operatorAlias(operator: string) {
   return 'observable' + operator[0].toUpperCase() + operator.substring(1, operator.length);
 }
 
-function createImportReplacements(operatorsToAdd: Set<string>, startIndex: number): Lint.Replacement[] {
-  return [...Array.from(operatorsToAdd.values())].map(operator =>
-    Lint.Replacement.appendText(startIndex, `\nimport {${operator} as ${operatorAlias(operator)}} from 'rxjs';\n`)
+function createImportReplacements(operatorsToAdd: Set<OperatorWithAlias>, startIndex: number): Lint.Replacement[] {
+  return [...Array.from(operatorsToAdd.values())].map(tuple =>
+    Lint.Replacement.appendText(startIndex, `\nimport {${tuple.operator} as ${tuple.alias}} from 'rxjs';\n`)
   );
 }
 
@@ -180,3 +180,15 @@ const OPERATOR_RENAMES: { [key: string]: string } = {
   if: 'iif',
   fromPromise: 'from'
 };
+
+type OperatorWithAlias = { operator: string; alias: string };
+type OperatorWithAliasMap = { [key: string]: OperatorWithAlias };
+
+const OPERATOR_WITH_ALIAS_MAP: OperatorWithAliasMap = Array.from(RXJS_OPERATORS).reduce((a, o) => {
+  const operatorName = OPERATOR_RENAMES[o] || o;
+  a[operatorName] = {
+    operator: operatorName,
+    alias: operatorAlias(operatorName)
+  };
+  return a;
+}, {});
