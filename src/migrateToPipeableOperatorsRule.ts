@@ -323,8 +323,13 @@ function replaceWithPipeableOperators(
   const immediateParentText = immediateParent.getText();
   const identifierStart = immediateParentText.lastIndexOf('.');
   const identifierText = immediateParentText.slice(identifierStart + 1);
-  const pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText] || identifierText;
-  operatorsToImport.add(pipeableOperator);
+  let pipeableOperator = PIPEABLE_OPERATOR_MAPPING[identifierText];
+  if (pipeableOperator === undefined) {
+    pipeableOperator = identifierText;
+  }
+  if (identifierText !== 'let') {
+    operatorsToImport.add(pipeableOperator);
+  }
   // Generates a replacement that would replace .map with map using absolute
   // position of the text to be replaced.
   const operatorReplacement = Lint.Replacement.replaceFromTo(
@@ -454,13 +459,15 @@ const RXJS_OPERATORS = new Set([
   'flatMap',
   'flatMapTo',
   'finally',
-  'switch'
+  'switch',
+  'let'
 ]);
 /**
  * Represents the mapping for pipeable version of some operators whose name has
  * changed due to conflict with JavaScript keyword restrictions.
  */
 const PIPEABLE_OPERATOR_MAPPING: { [key: string]: string } = {
+  let: '',
   do: 'tap',
   catch: 'catchError',
   flatMap: 'mergeMap',
