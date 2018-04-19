@@ -293,5 +293,77 @@ describe('update-rxjs-imports', () => {
 
       assertReplacements(err as RuleFailure[], source, after);
     });
+
+    it('should migrate fromPromise to from', () => {
+      const source = `
+        import { fromPromise } from 'rxjs/observable/fromPromise';
+      `;
+      const after = `
+        import { from as fromPromise } from 'rxjs';
+      `;
+
+      const err = assertFailures('update-rxjs-imports', source, [
+        {
+          startPosition: {
+            line: 1,
+            character: 17
+          },
+          endPosition: {
+            line: 1,
+            character: 28
+          },
+          message: 'imported symbol no longer exists'
+        },
+        {
+          startPosition: {
+            line: 1,
+            character: 37
+          },
+          endPosition: {
+            line: 1,
+            character: 64
+          },
+          message: 'outdated import path'
+        }
+      ]);
+
+      assertReplacements(err as RuleFailure[], source, after);
+    });
+
+    it('should migrate fromPromise to from', () => {
+      const source = `
+        import { _throw } from 'rxjs/observable/throw';
+      `;
+      const after = `
+        import { throwError as _throw } from 'rxjs';
+      `;
+
+      const err = assertFailures('update-rxjs-imports', source, [
+        {
+          startPosition: {
+            line: 1,
+            character: 17
+          },
+          endPosition: {
+            line: 1,
+            character: 23
+          },
+          message: 'imported symbol no longer exists'
+        },
+        {
+          startPosition: {
+            line: 1,
+            character: 32
+          },
+          endPosition: {
+            line: 1,
+            character: 53
+          },
+          message: 'outdated import path'
+        }
+      ]);
+
+      assertReplacements(err as RuleFailure[], source, after);
+    });
   });
 });
