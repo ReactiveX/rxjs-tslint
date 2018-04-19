@@ -1,6 +1,6 @@
 {
   "name": "rxjs-tslint",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "TSLint rule for RxJS",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "contributors": ["Minko Gechev <mgechev@gmail.com>"],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mgechev/tslint-rules.git"
+    "url": "git+https://github.com/reactivex/rxjs-tslint.git"
   },
   "keywords": ["rxjs", "lint", "tslint"],
   "author": {
@@ -32,9 +32,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mgechev/tslint-rules/issues"
+    "url": "https://github.com/reactivex/rxjs-tslint/issues"
   },
-  "homepage": "https://github.com/mgechev/tslint-rules#readme",
+  "homepage": "https://github.com/reactivex/rxjs-tslint#readme",
   "devDependencies": {
     "@types/chai": "^3.4.33",
     "@types/mocha": "^2.2.32",
