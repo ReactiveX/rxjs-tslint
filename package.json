@@ -8,14 +8,13 @@
     "lint": "tslint -c tslint.json \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
     "release":
-      "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package && BUILD_TYPE=prod npm run set:vars",
+      "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package",
     "build": "rimraf dist && tsc && npm run lint && npm t",
-    "copy:common": "cp README.md dist/src",
-    "prepare:package": "cat package.json | ts-node build/package.ts > dist/src/package.json",
+    "copy:common": "cp README.md dist",
+    "prepare:package": "cat package.json | ts-node build/package.ts > dist/package.json",
     "test": "rimraf dist && tsc && mocha -R nyan dist/test --recursive",
     "test:watch":
-      "rimraf dist && tsc && BUILD_TYPE=dev npm run set:vars && mocha -R nyan dist/test --watch --recursive",
-    "set:vars": "ts-node build/vars.ts --src ./dist",
+      "rimraf dist && tsc && BUILD_TYPE=dev && mocha -R nyan dist/test --watch --recursive",
     "tscv": "tsc --version",
     "tsc": "tsc",
     "tsc:watch": "tsc --w"
