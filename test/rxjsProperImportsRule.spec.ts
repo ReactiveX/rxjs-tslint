@@ -8,7 +8,7 @@ import {
 import { assert } from 'chai';
 import { RuleFailure } from 'tslint';
 
-describe('update-rxjs-imports', () => {
+describe('rxjs-proper-imports', () => {
   describe('invalid import', () => {
     it('should update the old import', () => {
       const source = `
@@ -16,7 +16,7 @@ describe('update-rxjs-imports', () => {
                            ~~~~~~~~~~~~~~~
       `;
       const err = assertAnnotated({
-        ruleName: 'update-rxjs-imports',
+        ruleName: 'rxjs-proper-imports',
         message: 'outdated import path',
         source
       });
@@ -40,7 +40,7 @@ describe('update-rxjs-imports', () => {
       `;
 
       const err = assertAnnotated({
-        ruleName: 'update-rxjs-imports',
+        ruleName: 'rxjs-proper-imports',
         message: 'outdated import path',
         source
       });
@@ -60,7 +60,7 @@ describe('update-rxjs-imports', () => {
         import 'rxjs/operators/do';
       `;
 
-      assertSuccess('update-rxjs-imports', source);
+      assertSuccess('rxjs-proper-imports', source);
     });
   });
 
@@ -73,7 +73,7 @@ describe('update-rxjs-imports', () => {
         import { EMPTY as empty } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -109,7 +109,7 @@ describe('update-rxjs-imports', () => {
         import { EMPTY as Empty } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -145,7 +145,7 @@ describe('update-rxjs-imports', () => {
         import { NEVER as never } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -181,7 +181,7 @@ describe('update-rxjs-imports', () => {
         import { NEVER as Bar } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -219,7 +219,7 @@ describe('update-rxjs-imports', () => {
         import { Unsubscribable as AnonymousSubscription } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -255,7 +255,7 @@ describe('update-rxjs-imports', () => {
         import { Unsubscribable as AnonymousSubscription, SubscriptionLike as ISubscription } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -302,7 +302,7 @@ describe('update-rxjs-imports', () => {
         import { from as fromPromise } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,
@@ -338,7 +338,7 @@ describe('update-rxjs-imports', () => {
         import { throwError as _throw } from 'rxjs';
       `;
 
-      const err = assertFailures('update-rxjs-imports', source, [
+      const err = assertFailures('rxjs-proper-imports', source, [
         {
           startPosition: {
             line: 1,

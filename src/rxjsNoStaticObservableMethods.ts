@@ -9,7 +9,7 @@ import { subtractSets, concatSets, isObservable, returnsObservable, computeInser
  */
 export class Rule extends Lint.Rules.TypedRule {
   static metadata: Lint.IRuleMetadata = {
-    ruleName: 'migrate-static-observable-methods',
+    ruleName: 'rxjs-no-static-observable-methods',
     description: 'Updates the static methods of the Observable class.',
     optionsDescription: '',
     options: null,

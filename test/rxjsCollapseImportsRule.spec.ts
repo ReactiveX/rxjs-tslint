@@ -8,7 +8,7 @@ import {
 import { assert } from 'chai';
 import { RuleFailure } from 'tslint';
 
-describe('collapse-rxjs-imports', () => {
+describe('rxjs-collapse-imports', () => {
   it('should collapse imports', () => {
     const source = `
       import { foo } from 'rxjs';
@@ -18,7 +18,7 @@ describe('collapse-rxjs-imports', () => {
       `;
 
     const err = assertMultipleAnnotated({
-      ruleName: 'collapse-rxjs-imports',
+      ruleName: 'rxjs-collapse-imports',
       failures: [
         {
           msg: 'duplicate RxJS import',
@@ -51,7 +51,7 @@ describe('collapse-rxjs-imports', () => {
       `;
 
     const err = assertMultipleAnnotated({
-      ruleName: 'collapse-rxjs-imports',
+      ruleName: 'rxjs-collapse-imports',
       failures: [
         {
           msg: 'duplicate RxJS import',

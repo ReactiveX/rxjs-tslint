@@ -11,7 +11,7 @@ import { subtractSets, concatSets, isObservable, returnsObservable, computeInser
  */
 export class Rule extends Lint.Rules.TypedRule {
   static metadata: Lint.IRuleMetadata = {
-    ruleName: 'migrate-to-pipeable-operators',
+    ruleName: 'rxjs-pipeable-operators-only',
     description: `Pipeable operators offer a new way of composing observable chains and
         they have advantages for both application developers and library
         authors.`,
