@@ -9,18 +9,8 @@
     "lib": ["es6", "es2015", "dom"],
     "noLib": false,
     "outDir": "./dist",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules"
-    ],
-    "types": [
-      "mocha",
-      "chai",
-      "node",
-      "sprintf-js"
-    ]
+    "typeRoots": ["./node_modules/@types", "./node_modules"],
+    "types": ["mocha", "chai", "node", "sprintf-js"]
   },
-  "files": [
-    "src/index.ts"
-  ]
+  "files": ["src/rxjs-5-to-6-migrate.ts", "src/index.ts"]
 }

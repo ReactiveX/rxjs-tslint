@@ -17,35 +17,18 @@ This repository provides the following rules:
 
 Using the current set of rules allows you to automatically migrate your project which uses RxJS 5 to RxJS 6. Here's how you can perform the automatic migration:
 
-1.  Install `rxjs-tslint`:
+```bash
+npm i -g rxjs-tslint
+rxjs-5-to-6-migrate -p [PATH_TO_TSCONFIG]
+```
+
+For an Angular CLI project the invocation of `rxjs-5-to-6-migrate` will be:
 
 ```bash
-npm i rxjs-tslint
+rxjs-5-to-6-migrate -p src/tsconfig.app.json
 ```
 
-2.  In your project's directory, create a file called `migrate-rxjs.tslint.json` with the following content:
-
-```json
-{
-  "rulesDirectory": ["node_modules/rxjs-tslint"],
-  "rules": {
-    "rxjs-proper-imports": true,
-    "rxjs-pipeable-operators-only": true,
-    "rxjs-no-static-observable-methods": true,
-    "rxjs-collapse-imports": true
-  }
-}
-```
-
-3.  Run tslint, pointing to the `tsconfig.json` file that you use for TypeScript compilation (this is used so the checks can use type information). For example if your `tsconfig` is in `src/tsconfig.app.json` (the default from Angular CLI), the command would be:
-
-```bash
-./node_modules/.bin/tslint -c migrate-rxjs.tslint.json --project src/tsconfig.app.json --fix
-```
-
-4.  Enjoy! 😎
-
-#### Notes
+### Notes
 
 * Once you run all the migrations check the diff and make sure that everything looks as expected. These fixers cover almost all cases we know of, but it's possible that some manual fixes can be required.
 * Although the migration will format your source code, it's likely that that the style is not consistent with the rest of your project. To make sure that everything is properly following your project's style guide, we recommend you apply a formatter such as prettier or clang-format after the edits are made.
