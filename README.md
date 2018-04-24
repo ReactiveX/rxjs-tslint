@@ -6,12 +6,12 @@ TSLint rules for rxjs.
 
 This repository provides the following rules:
 
-|              Rule Name              | Configuration |                       Description                       |
-| :---------------------------------: | :-----------: | :-----------------------------------------------------: |
-|       `collapse-rxjs-imports`       |     none      | Collapses multiple imports from `rxjs` to a single one. |
-|   `migrate-to-pipeable-operators`   |     none      |      Migrates side-effect operators to pipeables.       |
-| `migrate-static-observable-methods` |     none      |        Migrates static `Observable` method calls        |
-|        `update-rxjs-imports`        |     none      |         Updates RxJS 5.x.x imports to RxJS 6.0          |
+| Rule name                         | Configuration | Description                                          |
+| --------------------------------- | ------------- | ---------------------------------------------------- |
+| rxjs-collapse-imports             | none          | Collapses multiple imports from rxjs to a single one |
+| rxjs-pipeable-operators-only      | none          | Migrates side-effect operators to pipeables          |
+| rxjs-no-static-observable-methods | none          | Migrates static Observable method calls              |
+| rxjs-proper-imports               | none          | Updates RxJS 5.x.x imports to RxJS 6.0               |
 
 ## Migration to RxJS 6
 
@@ -29,10 +29,10 @@ npm i rxjs-tslint
 {
   "rulesDirectory": ["node_modules/rxjs-tslint"],
   "rules": {
-    "update-rxjs-imports": true,
-    "migrate-to-pipeable-operators": true,
-    "migrate-static-observable-methods": true,
-    "collapse-rxjs-imports": true
+    "rxjs-proper-imports": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-collapse-imports": true
   }
 }
 ```

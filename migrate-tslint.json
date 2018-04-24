@@ -1,9 +1,9 @@
 {
   "rulesDirectory": ["dist/src"],
   "rules": {
-    "update-rxjs-imports": true,
-    "migrate-to-pipeable-operators": true,
-    "migrate-static-observable-methods": true,
-    "collapse-rxjs-imports": true
+    "rxjs-proper-imports": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-collapse-imports": true
   }
 }

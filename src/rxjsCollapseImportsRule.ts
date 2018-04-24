@@ -11,7 +11,7 @@ const FAILURE_STRING = 'duplicate RxJS import';
  */
 export class Rule extends Lint.Rules.AbstractRule {
   static metadata: Lint.IRuleMetadata = {
-    ruleName: 'collapse-rxjs-imports',
+    ruleName: 'rxjs-collapse-imports',
     description:
       `In RxJS v6.0 most imports are just ` +
       `"import {...} from 'rxjs';". This TSLint rule collapses the ` +

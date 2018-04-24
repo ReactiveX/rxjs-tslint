@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 
 export class Rule extends Lint.Rules.AbstractRule {
   public static metadata: Lint.IRuleMetadata = {
-    ruleName: 'update-rxjs-imports',
+    ruleName: 'rxjs-proper-imports',
     type: 'functionality',
     description: 'Updates the paths of the rxjs imports to the version 6',
     rationale: 'RxJS version 6 updated their API which requires changes in some of the import paths.',
