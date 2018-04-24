@@ -1,5 +1,6 @@
 {
-  "rulesDirectory": ["dist/src"],
+  "rulesDirectory": ["."],
+  "defaultSeverity": "warning",
   "rules": {
     "rxjs-proper-imports": true,
     "rxjs-pipeable-operators-only": true,

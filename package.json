@@ -1,20 +1,22 @@
 {
   "name": "rxjs-tslint",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TSLint rule for RxJS",
   "main": "index.js",
+  "bin": {
+    "rxjs-5-to-6-migrate": "./bin/rxjs-5-to-6-migrate"
+  },
   "scripts": {
     "docs": "ts-node build/buildDocs.ts",
     "lint": "tslint -c tslint.json \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
     "release":
-      "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package",
+      "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package && cp -r bin rxjs-5-to-6-migrate.json dist",
     "build": "rimraf dist && tsc && npm run lint && npm t",
     "copy:common": "cp README.md dist",
     "prepare:package": "cat package.json | ts-node build/package.ts > dist/package.json",
     "test": "rimraf dist && tsc && mocha -R nyan dist/test --recursive",
-    "test:watch":
-      "rimraf dist && tsc && BUILD_TYPE=dev && mocha -R nyan dist/test --watch --recursive",
+    "test:watch": "rimraf dist && tsc && BUILD_TYPE=dev && mocha -R nyan dist/test --watch --recursive",
     "tscv": "tsc --version",
     "tsc": "tsc",
     "tsc:watch": "tsc --w"
@@ -36,8 +38,10 @@
   "homepage": "https://github.com/reactivex/rxjs-tslint#readme",
   "devDependencies": {
     "@types/chai": "^3.4.33",
+    "@types/chalk": "^2.2.0",
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.41",
+    "@types/optimist": "0.0.29",
     "@types/sprintf-js": "^1.1.0",
     "chai": "^3.5.0",
     "chai-spies": "^0.7.1",
@@ -45,14 +49,16 @@
     "json-stringify-pretty-compact": "^1.1.0",
     "mocha": "3.0.2",
     "rimraf": "^2.5.2",
-    "ts-node": "^3.3.0",
-    "tslint": "^5.0.0",
-    "typescript": "^2.7.0"
+    "ts-node": "^3.3.0"
   },
   "peerDependencies": {
     "tslint": "^5.0.0"
   },
   "dependencies": {
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.3",
+    "chalk": "^2.4.0",
+    "optimist": "^0.6.1",
     "tsutils": "^2.25.0"
   }
 }
