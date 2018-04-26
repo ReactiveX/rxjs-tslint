@@ -28,6 +28,30 @@ For an Angular CLI project the invocation of `rxjs-5-to-6-migrate` will be:
 rxjs-5-to-6-migrate -p src/tsconfig.app.json
 ```
 
+## Use rules
+
+To use the exported rules without `rxjs-5-to-6-migrate`, use the `rulesDirectory` configuration property of `tslint.json`:
+
+```json
+{
+  "rulesDirectory": [
+    "node_modules/rxjs-tslint"
+  ],
+  "rules": {
+    "rxjs-collapse-imports": true,
+    "rxjs-pipeable-operators-only": true,
+    "rxjs-no-static-observable-methods": true,
+    "rxjs-proper-imports": true
+  }
+}
+```
+
+To lint your project use:
+
+```
+./node_modules/.bin/tslint -c tslint.json -p tsconfig.json
+```
+
 ### Notes
 
 * Once you run all the migrations check the diff and make sure that everything looks as expected. These fixers cover almost all cases we know of, but it's possible that some manual fixes can be required.
