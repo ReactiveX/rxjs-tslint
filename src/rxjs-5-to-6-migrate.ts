@@ -24,6 +24,10 @@ const migrate = () => {
   return '';
 };
 
+process.stdout.write(
+  chalk.yellow('Running the automatic migrations. Please, be patient and wait until the execution completes.\n')
+);
+
 const errors = migrate();
 if (errors) {
   process.stdout.write(chalk.blue('Found and fixed the following deprecations:\n'));
