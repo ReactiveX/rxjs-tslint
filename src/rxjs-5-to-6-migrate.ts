@@ -9,9 +9,9 @@ if (!argv.p) {
 }
 
 const command =
-  join(__dirname, 'node_modules', '.bin', 'tslint') +
+  join('"' + __dirname + '"', 'node_modules', '.bin', 'tslint') +
   ' -c ' +
-  join(__dirname, 'rxjs-5-to-6-migrate.json') +
+  join('"' + __dirname + '"', 'rxjs-5-to-6-migrate.json') +
   ' -p ' +
   argv.p +
   ' --fix';
