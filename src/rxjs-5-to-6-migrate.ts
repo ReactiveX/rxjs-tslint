@@ -13,7 +13,7 @@ const command =
   ' -c ' +
   join('"' + __dirname + '"', 'rxjs-5-to-6-migrate.json') +
   ' -p ' +
-  argv.p +
+  '"' + argv.p + '"' +
   ' --fix';
 
 const migrate = () => {
