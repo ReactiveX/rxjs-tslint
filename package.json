@@ -1,6 +1,6 @@
 {
   "name": "rxjs-tslint",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "TSLint rule for RxJS",
   "main": "index.js",
   "bin": {
@@ -10,8 +10,7 @@
     "docs": "ts-node build/buildDocs.ts",
     "lint": "tslint -c tslint.json \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint:fix": "npm run lint -- --fix",
-    "release":
-      "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package && cp -r bin rxjs-5-to-6-migrate.json dist",
+    "release": "npm run build && rimraf dist && tsc -p tsconfig-release.json && npm run copy:common && npm run prepare:package && cp -r bin rxjs-5-to-6-migrate.json dist",
     "build": "rimraf dist && tsc && npm run lint && npm t",
     "copy:common": "cp README.md dist",
     "prepare:package": "cat package.json | ts-node build/package.ts > dist/package.json",
@@ -21,12 +20,18 @@
     "tsc": "tsc",
     "tsc:watch": "tsc --w"
   },
-  "contributors": ["Minko Gechev <mgechev@gmail.com>"],
+  "contributors": [
+    "Minko Gechev <mgechev@gmail.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/reactivex/rxjs-tslint.git"
   },
-  "keywords": ["rxjs", "lint", "tslint"],
+  "keywords": [
+    "rxjs",
+    "lint",
+    "tslint"
+  ],
   "author": {
     "name": "Minko Gechev",
     "email": "mgechev@gmail.com"
