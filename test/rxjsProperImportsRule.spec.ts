@@ -30,6 +30,27 @@ describe('rxjs-proper-imports', () => {
 
       assertReplacements(err as RuleFailure[], before, after);
     });
+
+    it('should rename "rxjs/Rx" to "rxjs"', () => {
+      const source = `
+      import { foo } from 'rxjs/Rx';
+                           ~~~~~~~
+      `;
+      const err = assertAnnotated({
+        ruleName: 'rxjs-proper-imports',
+        message: 'outdated import path',
+        source
+      });
+
+      const before = `
+      import { foo } from 'rxjs/Rx';
+      `;
+      const after = `
+      import { foo } from 'rxjs';
+      `;
+
+      assertReplacements(err as RuleFailure[], before, after);
+    });
   });
 
   describe('operators import', () => {
