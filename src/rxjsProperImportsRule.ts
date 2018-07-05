@@ -112,6 +112,7 @@ const ImportMap = new Map([
   ['rxjs/Observer', 'rxjs'],
   ['rxjs/Operator', 'rxjs'],
   ['rxjs/ReplaySubject', 'rxjs'],
+  ['rxjs/Rx', 'rxjs'],
   ['rxjs/Subject', 'rxjs'],
   ['rxjs/Subscriber', 'rxjs'],
   ['rxjs/Scheduler', 'rxjs'],
