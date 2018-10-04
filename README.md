@@ -15,7 +15,16 @@ This repository provides the following rules:
 
 ## Migration to RxJS 6
 
-Using the current set of rules allows you to automatically migrate your project which uses RxJS 5 to RxJS 6. Here's how you can perform the automatic migration:
+Using the current set of rules allows you to automatically migrate your project which uses RxJS 5 to RxJS 6.
+
+_First of all, the npm package of Typescript should be installed globally with this command :_
+
+```bash
+npm i -g typescript@^2.8.3
+```
+
+
+Now, Here's how you can perform the automatic migration:
 
 ```bash
 npm i -g rxjs-tslint
