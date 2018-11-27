@@ -17,7 +17,13 @@ const command =
   ' --fix';
 
 const migrate = () => {
-  const errors = execSync(command).toString() || '';
+  let errors = '';
+  try {
+    errors = execSync(command).toString() || '';
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
   if (errors.indexOf('WARNING:') >= 0) {
     return errors + migrate();
   }
