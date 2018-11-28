@@ -30,6 +30,8 @@ rxjs-5-to-6-migrate -p src/tsconfig.app.json
 
 **Note:** The rules use type checking to find all the instances of operators that need to be migrated to pipeables. This requires you to have `rxjs@5` installed so that tslint could find the correct type definitions.
 
+*If you're following the migration instructions from https://update.angular.io, between versions 5 and 6 you'll have to run `ng update @angular/core`. This step will install `rxjs-compat`, which will let `rxjs-5-to-6-migrate` to perform the correct code transformations.*
+
 ## Use rules
 
 To use the exported rules without `rxjs-5-to-6-migrate`, use the `rulesDirectory` configuration property of `tslint.json`:
