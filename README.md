@@ -28,6 +28,8 @@ For an Angular CLI project the invocation of `rxjs-5-to-6-migrate` will be:
 rxjs-5-to-6-migrate -p src/tsconfig.app.json
 ```
 
+**Note:** The rules use type checking to find all the instances of operators that need to be migrated to pipeables. This requires you to have `rxjs@5` installed so that tslint could find the correct type definitions.
+
 ## Use rules
 
 To use the exported rules without `rxjs-5-to-6-migrate`, use the `rulesDirectory` configuration property of `tslint.json`:
