@@ -1,4 +1,4 @@
-import { argv } from 'optimist';
+import { argv } from 'yargs';
 import { join } from 'path';
 import { execSync } from 'child_process';
 import chalk from 'chalk';
