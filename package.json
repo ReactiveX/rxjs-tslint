@@ -1,6 +1,6 @@
 {
   "name": "rxjs-tslint",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "TSLint rule for RxJS",
   "main": "index.js",
   "bin": {
