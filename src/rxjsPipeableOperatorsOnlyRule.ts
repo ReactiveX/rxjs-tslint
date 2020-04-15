@@ -205,9 +205,21 @@ function findImportedRxjsOperators(sourceFile: ts.SourceFile): Set<string> {
  * @param startIndex Position where the {@link Lint.Replacement} can be inserted
  */
 function createImportReplacements(operatorsToAdd: Set<string>, startIndex: number): Lint.Replacement[] {
-  return [...Array.from(operatorsToAdd.values())].map(operator =>
-    Lint.Replacement.appendText(startIndex, `\nimport {${operator}} from 'rxjs/operators/${operator}';\n`)
-  );
+  return [...Array.from(operatorsToAdd.values())].map(operator => {
+    let importPath: string;
+    if (NGRX_EFFECT_OPERATORS.has(operator)) {
+      importPath = '@ngrx/effects';
+    }
+    if (NGRX_STORE_OPERATORS.has(operator)) {
+      importPath = '@ngrx/store';
+    } else {
+      importPath = `rxjs/operators/${operator}`;
+    }
+    return Lint.Replacement.appendText(
+      startIndex,
+      `\nimport {${operator}} from '${importPath}';\n`
+    );
+  });
 }
 
 /**
@@ -296,6 +308,10 @@ function replaceWithPipeableOperators(
   const separatorReplacements = notStart ? [Lint.Replacement.appendText(currentNode.getEnd(), ',')] : [];
   return [operatorReplacement, ...separatorReplacements, ...moreReplacements];
 }
+
+const NGRX_STORE_OPERATORS = new Set(['select']);
+const NGRX_EFFECT_OPERATORS = new Set(['ofType']);
+
 /**
  * Set of all instance operators, including those renamed as part of lettable
  * operator migration. Source:(RxJS v5)
@@ -409,7 +425,9 @@ const RXJS_OPERATORS = new Set([
   'flatMapTo',
   'finally',
   'switch',
-  'let'
+  'let',
+  ...Array.from(NGRX_STORE_OPERATORS),
+  ...Array.from(NGRX_EFFECT_OPERATORS)
 ]);
 /**
  * Represents the mapping for pipeable version of some operators whose name has

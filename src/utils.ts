@@ -23,7 +23,10 @@ export function isObservable(type: ts.Type, tc: ts.TypeChecker): boolean {
   if (tsutils.isTypeReference(type)) {
     type = type.target;
   }
-  if (type.symbol !== undefined && type.symbol.name === 'Observable') {
+  if (
+    type.symbol !== undefined &&
+    (type.symbol.name === 'Observable' || type.symbol.name === 'Store')
+  ) {
     return true;
   }
   if (tsutils.isUnionOrIntersectionType(type)) {
